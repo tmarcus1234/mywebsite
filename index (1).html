@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcus Torres | Where Operations Meet the Markets</title>
+<meta name="description" content="Marcus Torres. Economics & Finance student at William Paterson University's Cotsakos College of Business. Property operations, financial analysis, and market research, brought together.">
+<meta property="og:title" content="Marcus Torres | Where Operations Meet the Markets">
+<meta property="og:description" content="Economics & Finance student building a career at the intersection of operations and markets.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230A1628'/%3E%3Ctext x='50' y='68' font-size='54' font-family='Georgia,serif' fill='%23C9A24B' text-anchor='middle'%3EMT%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          navy: { DEFAULT: '#0A1628', deep: '#060D18', panel: '#0F1D33' },
+          charcoal: '#1C2530',
+          slate: { DEFAULT: '#64748B', light: '#94A3B8' },
+          offwhite: '#F5F7FA',
+          accent: { blue: '#5B8DEF', gold: '#C9A24B' }
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['"Inter"', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+
+  ::selection { background: #C9A24B; color: #0A1628; }
+
+  /* Default (dark) mode base classes */
+  .text-primary { color: #F5F7FA; }
+  .text-muted { color: #94A3B8; }
+  .surface { background: #0F1D33; border-color: rgba(255,255,255,0.1); }
+  .surface-2 { background: #1C2530; border-color: rgba(255,255,255,0.1); }
+
+  /* Light mode overrides */
+  html:not(.dark) body { background: #F5F7FA; color: #0F1D33; }
+  html:not(.dark) .surface { background: #FFFFFF; border-color: #E2E8F0; }
+  html:not(.dark) .surface-2 { background: #EEF1F6; border-color: #E2E8F0; }
+  html:not(.dark) .text-primary { color: #0F1D33; }
+  html:not(.dark) .text-muted { color: #475569; }
+  html:not(.dark) .hero-grid { opacity: 0.06; }
+  html:not(.dark) .nav-blur { background: rgba(245,247,250,0.75); border-color: #E2E8F0; }
+
+  /* Ticker */
+  .ticker-track { display: flex; width: max-content; animation: ticker 42s linear infinite; }
+  .ticker-track:hover { animation-play-state: paused; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Grid background */
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, rgba(148,163,184,0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148,163,184,0.15) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  /* Floating blobs */
+  .blob { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: 0.28; animation: float 16s ease-in-out infinite; }
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(24px,-32px) scale(1.08); }
+  }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  /* Timeline */
+  .timeline-item { cursor: pointer; }
+  .timeline-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease; opacity: 0; }
+  .timeline-item.open .timeline-detail { max-height: 800px; opacity: 1; }
+  .timeline-item.open .chev { transform: rotate(90deg); }
+  .chev { transition: transform 0.3s ease; }
+
+  /* Skill bars */
+  .skill-fill { width: 0%; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+  /* Counters handled via JS */
+
+  /* Card hover lift */
+  .lift { transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease; }
+  .lift:hover { transform: translateY(-6px); }
+
+  /* Gold underline accent for eyebrow labels */
+  .eyebrow { letter-spacing: 0.18em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track, .blob, .reveal, .skill-fill, .timeline-detail { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  a, button { outline-offset: 4px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #5B8DEF; }
+</style>
+</head>
+<body class="bg-navy text-offwhite font-body antialiased selection:bg-accent-gold">
+
+<!-- NAV -->
+<nav class="nav-blur fixed top-0 left-0 right-0 z-50 border-b border-white/10 backdrop-blur-md" style="background: rgba(10,22,40,0.72);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="font-display font-semibold tracking-tight text-lg text-primary">MT<span class="text-accent-gold">.</span></a>
+    <div class="hidden md:flex items-center gap-8 font-mono text-xs eyebrow uppercase text-muted">
+      <a href="#about" class="hover:text-accent-blue transition-colors">About</a>
+      <a href="#experience" class="hover:text-accent-blue transition-colors">Experience</a>
+      <a href="#leadership" class="hover:text-accent-blue transition-colors">Leadership</a>
+      <a href="#articles" class="hover:text-accent-blue transition-colors">Writing</a>
+      <a href="#projects" class="hover:text-accent-blue transition-colors">Case Studies</a>
+      <a href="#education" class="hover:text-accent-blue transition-colors">Education</a>
+      <a href="#contact" class="hover:text-accent-blue transition-colors">Contact</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" aria-label="Toggle light and dark mode" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-accent-gold transition-colors">
+        <svg id="icon-moon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-sun" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a href="Marcus_Torres_Resume.pdf" target="_blank" class="hidden sm:inline-block text-xs font-mono uppercase eyebrow border border-accent-gold/60 text-accent-gold px-4 py-2 rounded-full hover:bg-accent-gold hover:text-navy transition-colors">View Resume</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top" class="relative overflow-hidden pt-40 pb-28 px-6">
+  <div class="absolute inset-0 hero-grid pointer-events-none"></div>
+  <div class="blob w-96 h-96 bg-accent-blue -top-20 -left-20"></div>
+  <div class="blob w-96 h-96 bg-accent-gold top-40 right-0" style="animation-delay: -6s;"></div>
+
+  <div class="relative max-w-6xl mx-auto">
+    <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-6">Economics & Finance · Cotsakos College of Business</p>
+    <h1 class="font-display font-semibold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight max-w-4xl text-primary">
+      Where operations meet the <span class="text-accent-gold">markets.</span>
+    </h1>
+    <p class="mt-8 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed">
+      Marcus Torres is an Economics and Finance double-major at William Paterson University, working toward the CFA charter while applying financial statement analysis and modeling across real estate operations and wealth management. He's most interested in what the numbers actually say.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a href="Marcus_Torres_Resume.pdf" target="_blank" class="font-mono text-sm uppercase eyebrow bg-accent-gold text-navy px-6 py-3 rounded-full font-medium hover:brightness-110 transition">View Resume</a>
+      <a href="#contact" class="font-mono text-sm uppercase eyebrow border border-white/20 px-6 py-3 rounded-full hover:border-accent-blue hover:text-accent-blue transition">Contact Me</a>
+      <a href="#experience" class="font-mono text-sm uppercase eyebrow border border-white/20 px-6 py-3 rounded-full hover:border-accent-blue hover:text-accent-blue transition">Explore My Journey</a>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl">
+      <div>
+        <p class="font-mono text-3xl font-semibold text-accent-blue counter" data-target="150">0</p>
+        <p class="text-xs text-muted mt-1 uppercase eyebrow font-mono">Units managed</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl font-semibold text-accent-blue counter" data-target="6000">0</p>
+        <p class="text-xs text-muted mt-1 uppercase eyebrow font-mono">Prospects reached</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl font-semibold text-accent-blue"><span class="counter" data-target="2">0</span> majors</p>
+        <p class="text-xs text-muted mt-1 uppercase eyebrow font-mono">Econ + Finance</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl font-semibold text-accent-blue">L1</p>
+        <p class="text-xs text-muted mt-1 uppercase eyebrow font-mono">CFA applicant</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER (signature element) -->
+<div class="border-y border-white/10 bg-charcoal/60 surface-2 overflow-hidden py-3">
+  <div class="ticker-track font-mono text-sm">
+    <!-- duplicated set for seamless loop -->
+    <div class="flex items-center shrink-0">
+      <span class="flex items-center gap-2 px-6 text-muted">EXCEL <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">WORD <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">POWERPOINT <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">BLOOMBERG BFF <span class="text-accent-gold">▲ In progress</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">SIE <span class="text-accent-blue">● Completed</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">CFA LEVEL 1 <span class="text-accent-gold">▲ Applicant</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">YALE FINANCIAL MARKETS <span class="text-accent-blue">● Completed</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">PYTHON <span class="text-slate-light">◆ Basic</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">DCF / LBO / QofE <span class="text-slate-light">◆ Novice</span></span>
+    </div>
+    <div class="flex items-center shrink-0" aria-hidden="true">
+      <span class="flex items-center gap-2 px-6 text-muted">EXCEL <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">WORD <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">POWERPOINT <span class="text-accent-blue">● Certified</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">BLOOMBERG BFF <span class="text-accent-gold">▲ In progress</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">SIE <span class="text-accent-blue">● Completed</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">CFA LEVEL 1 <span class="text-accent-gold">▲ Applicant</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">YALE FINANCIAL MARKETS <span class="text-accent-blue">● Completed</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">PYTHON <span class="text-slate-light">◆ Basic</span></span>
+      <span class="flex items-center gap-2 px-6 text-muted">DCF / LBO / QofE <span class="text-slate-light">◆ Novice</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto px-6 py-28">
+  <div class="grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-4 reveal">
+      <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4">01 · About</p>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary leading-tight">Numbers first. Always.</h2>
+
+      <!-- Photo slot: replace the placeholder below with an <img src="your-photo.jpg" ...> once you have a headshot hosted alongside this file -->
+      <div class="mt-8 aspect-square w-full max-w-[220px] rounded-2xl surface border border-white/10 flex items-center justify-center overflow-hidden">
+        <span class="font-display text-5xl font-semibold text-accent-gold">MT</span>
+      </div>
+      <p class="text-xs text-muted mt-3 font-mono">Add a headshot here anytime</p>
+    </div>
+    <div class="md:col-span-8 space-y-6 text-muted text-lg leading-relaxed reveal">
+      <p>Marcus reads a balance sheet the way some people read a box score. Since 2023 he's been managing the operations of a 150-plus unit residential property, which means he's the one reconciling rent rolls, reviewing lease terms, and keeping documentation clean enough to survive a banker or appraiser's walkthrough. It's given him a working fluency in the financial mechanics of real estate before most people his age have opened a 10-K.</p>
+      <p>In 2025 he moved that fluency into Kraner, LLC's wealth management practice, where he cleans and transforms Excel datasets that feed a 6,000-prospect outreach model and reports weekly on the KPIs behind it. As Secretary of his school's Student Investment Club, he writes weekly on market and economic events, and is currently studying toward the SIE and CFA Level 1 exams alongside coursework from the Yale Financial Markets program and Bloomberg's BFF certification.</p>
+      <p>He's an Economics major on the Research and Data Track, a Finance major, and, outside the numbers, someone who follows markets the way other people follow sports: closely, and for fun. Expect that to show up here more as the site grows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE TIMELINE -->
+<section id="experience" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">02 · Experience</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-14 reveal">Two jobs, one throughline.</h2>
+
+  <div class="space-y-4">
+
+    <div class="timeline-item surface border border-white/10 rounded-2xl p-6 sm:p-8 reveal" data-item>
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-2">Mar 2025 to Present</p>
+          <h3 class="font-display text-xl sm:text-2xl font-semibold text-primary">Wealth Management Intern</h3>
+          <p class="text-muted mt-1">Kraner, LLC · Montvale, NJ</p>
+        </div>
+        <svg class="chev w-5 h-5 text-accent-blue flex-shrink-0 mt-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+      <div class="timeline-detail mt-6 pt-6 border-t border-white/10 space-y-4 text-muted leading-relaxed">
+        <p>Marcus runs a targeted outreach program to more than 6,000 prospects, financial advisors weighing retirement or open to an M&A conversation. Behind that outreach sits a less glamorous but equally important job: cleaning and transforming the Excel datasets that make the reporting trustworthy in the first place.</p>
+        <p>He delivers weekly progress updates on the program's KPIs, built the social media presence for the firm's internship program across LinkedIn, Instagram, and TikTok, and now runs the 2026 internship class itself, covering trainings, team coordination, and reporting to management.</p>
+        <p class="text-primary"><span class="font-mono text-xs eyebrow uppercase text-accent-blue">Lesson learned:</span> an outreach program is only as good as the data underneath it, and someone has to own that data.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item surface border border-white/10 rounded-2xl p-6 sm:p-8 reveal" data-item>
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-2">Jun 2023 to Present</p>
+          <h3 class="font-display text-xl sm:text-2xl font-semibold text-primary">Assistant Property Manager</h3>
+          <p class="text-muted mt-1">John & Maryan LLC · Jersey City, NJ</p>
+        </div>
+        <svg class="chev w-5 h-5 text-accent-blue flex-shrink-0 mt-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+      <div class="timeline-detail mt-6 pt-6 border-t border-white/10 space-y-4 text-muted leading-relaxed">
+        <p>Marcus manages tenant relations across 150-plus residential units, handling rent, maintenance, and the daily inquiries that come by phone or in person. He handles lease creation and the documentation and filing of confidential records, and drafts the official notices and letters that keep tenants and property managers aligned.</p>
+        <p>He's also the person on-site coordinating property tours for appraisers, bankers, and inspectors, and the one accountable for keeping the property compliant with building standards.</p>
+        <p class="text-primary"><span class="font-mono text-xs eyebrow uppercase text-accent-blue">Lesson learned:</span> rent rolls, lease terms, and compliance records are financial data before they're anything else, and they only hold up under real scrutiny.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">03 · Leadership</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-14 reveal">Showing up before it's required.</h2>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="lift surface border border-white/10 rounded-2xl p-8 reveal">
+      <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-2">Apr 2025 to Present</p>
+      <h3 class="font-display text-xl font-semibold text-primary mb-1">Secretary, Executive Board</h3>
+      <p class="text-muted mb-4">Student Investment Club · Jersey City, NJ</p>
+      <p class="text-muted leading-relaxed mb-4">Marcus helps run the club end to end, booking guest speakers, building curricula, and promoting meetings that track current stock trends and market movement. He's picking up certifications along the way, including Microsoft 365 and Bloomberg Terminal, while sharpening financial modeling and applied AI-in-finance skills.</p>
+      <p class="text-muted leading-relaxed"><span class="text-primary font-medium">Why it matters:</span> he authors weekly articles on market and economic events for the club, a standing discipline in translating financial news into something worth reading.</p>
+    </div>
+    <div class="lift surface border border-white/10 rounded-2xl p-8 reveal">
+      <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-2">Mar 2025 to Present</p>
+      <h3 class="font-display text-xl font-semibold text-primary mb-1">Mentee</h3>
+      <p class="text-muted mb-4">Pesce Family Mentorship Program · Wayne, NJ</p>
+      <p class="text-muted leading-relaxed mb-4">Marcus works through structured tasks set by his mentor to build skills specific to the finance field, and attends networking events built around meeting working professionals and picking up practical career guidance.</p>
+      <p class="text-muted leading-relaxed"><span class="text-primary font-medium">Why it matters:</span> it's the deliberate, early habit of building a professional network before he needs one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES / WRITING -->
+<section id="articles" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">04 · Writing</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-4 reveal">Weekly market notes, in his own words.</h2>
+  <p class="text-muted max-w-2xl mb-14 reveal">Marcus writes a recurring market brief for the Student Investment Club. Here's a recent one.</p>
+
+  <div class="timeline-item surface border border-white/10 rounded-2xl p-6 sm:p-8 reveal" data-item>
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-2">Market Watch · May 14, 2026</p>
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-primary">Booming Indexes, Hot Inflation, Lack of Progress in Iran</h3>
+        <p class="text-muted mt-4 leading-relaxed">U.S. markets kept ripping to new highs over the past two weeks, even as the U.S. and Iran hold at a stagnant standoff, inflation comes in hotter than expected, and AI-driven names keep posting historic growth. The S&amp;P 500 (SPY) climbed 136 basis points on the week to close at $748, with the Nasdaq and Dow close behind.</p>
+        <p class="text-accent-blue text-sm font-mono uppercase eyebrow mt-4">Read full article</p>
+      </div>
+      <svg class="chev w-5 h-5 text-accent-blue flex-shrink-0 mt-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+    <div class="timeline-detail mt-6 pt-6 border-t border-white/10 space-y-5 text-muted leading-relaxed">
+
+      <div>
+        <p class="text-primary font-medium mb-2">Massive stalemate occurring with Iran</p>
+        <p>As Iran and the United States continue to drag out this war, there's been very little progress toward true peace. While bombing campaigns on the country itself have subsided, there's still rising tension regarding the Strait of Hormuz. Proposals have gone back and forth between both sides with no agreement, and each side maintains the ceasefire is "unbroken" even while continuing to strike the other's ships at sea. What started as a security operation involving the U.S. and Israel against Iran has turned into a three-month energy crisis affecting the rest of the world.</p>
+        <p class="mt-3">China has started voicing its own opinion. President Trump and President Xi met at the Beijing Summit and agreed the Strait of Hormuz should remain a free water passage, rejecting the idea of Iran charging for passage. President Trump has reportedly invited President Xi to the White House in September; it's unclear whether Xi will attend. Separately, Saudi Arabia has conducted secretive strikes on Iran after its own energy infrastructure was attacked, and Iran still retains the ability to strike further oil infrastructure in the Persian Gulf, according to U.S. Central Command.</p>
+      </div>
+
+      <div>
+        <p class="text-primary font-medium mb-2">Inflation continues to soar, primarily driven by gasoline</p>
+        <p>April inflation came in at 3.8%, above both the prior month's 3.3% and the Wall Street Journal's 3.7% estimate. Core inflation also surprised to the upside at 2.8%, versus a 2.7% estimate and 2.6% the month before. Rising prices in everyday items like coffee and gas are squeezing consumers, and economists are increasingly worried about the long-term effects of tariffs layered on top of an ongoing war. The Fed, along with incoming voices like Kevin Warsh, will have tough interest-rate decisions ahead, especially with political pressure to cut rates during an inflationary period raising questions about the Fed's independence. Inflation is currently outpacing wage growth in the U.S.</p>
+      </div>
+
+      <div>
+        <p class="text-primary font-medium mb-2">Stock market continues to run rampant</p>
+        <p>Gains remain concentrated in AI and the infrastructure supporting it. Micron Technology, the fifth-largest memory chipmaker globally, is up 713.5% over the trailing twelve months, driven by outsized earnings growth: Net Income jumped from $1.56B in Q2 FY25 (19.66% net margin) to $13.76B in Q2 FY26 (57.8% net margin). Micron next reports earnings 6/24.</p>
+        <p class="mt-3">Bloom Energy, a fuel-cell power provider for data centers, is up 1,461% over the trailing twelve months, fueled by major deals, including one worth up to $5B with Oracle. After a negative net income in FY25, Bloom Energy turned a positive Q1 FY26, reporting $73.6M in net income at roughly a 10% net margin. Expectations remain high heading into their next earnings report on 7/30. Marcus later dug into the company more deeply in a full equity research report (see Case Studies below).</p>
+      </div>
+
+      <div>
+        <p class="text-primary font-medium mb-2">Upcoming events to watch</p>
+        <p>Key economic data ahead includes Flash Manufacturing/Services PMI (May 21) and PCE Core, PCE Price, consumer spending, personal income, and the 2nd GDP estimate (May 28). On earnings: Ryanair kicks off the week Monday, offering a read on European airlines; Home Depot reports Tuesday as a gauge of U.S. consumer and developer spending; Nvidia headlines Wednesday alongside Lowe's and Target; Walmart follows Thursday and BJ's Wholesale on Friday. These reports matter beyond the individual companies; they're a window into consumer behavior and the direction of the main driver of U.S. GDP.</p>
+      </div>
+
+      <p class="text-xs text-muted italic pt-2 border-t border-white/10">Educational and informational only. Not financial advice. Marcus is not a registered representative and does not hold licensing to provide financial advice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">05 · Skills</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-14 reveal">Fluency, by category.</h2>
+
+  <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+
+    <div class="reveal">
+      <h3 class="font-display text-lg font-semibold text-primary mb-5">Finance & Markets</h3>
+      <div class="space-y-4" data-skills>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Financial Statement Analysis</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="80"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Financial Forecasting (DCF / LBO / QofE)</span><span class="font-mono text-slate-light">Novice</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="35"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">SIE / CFA L1 Coursework</span><span class="font-mono text-accent-gold">In progress</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="55"></div></div></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="font-display text-lg font-semibold text-primary mb-5">Data & Technology</h3>
+      <div class="space-y-4" data-skills>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Excel (Certified)</span><span class="font-mono text-accent-blue">Advanced</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="90"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Data Cleaning & Reporting</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="78"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Python</span><span class="font-mono text-slate-light">Basic</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="30"></div></div></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="font-display text-lg font-semibold text-primary mb-5">Business & Operations</h3>
+      <div class="space-y-4" data-skills>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Client Relations</span><span class="font-mono text-accent-blue">Advanced</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="88"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Documentation & Compliance</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="80"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Payment Processing</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="75"></div></div></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="font-display text-lg font-semibold text-primary mb-5">Communication & Research</h3>
+      <div class="space-y-4" data-skills>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Market & Economic Writing</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="78"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">LinkedIn Sales Navigator / Outreach</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="76"></div></div></div>
+        <div><div class="flex justify-between text-sm mb-1"><span class="text-muted">Presentation Design (PPT / Photoshop)</span><span class="font-mono text-accent-blue">Proficient</span></div><div class="h-1.5 bg-white/10 rounded-full"><div class="skill-fill h-full bg-accent-blue rounded-full" data-level="74"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS / CASE STUDIES -->
+<section id="projects" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">06 · Case Studies</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-4 reveal">Three problems, worked through.</h2>
+  <p class="text-muted max-w-2xl mb-14 reveal">Marcus doesn't yet have a formal project portfolio, so here's the real work, reframed as case studies.</p>
+
+  <div class="grid sm:grid-cols-2 gap-6">
+
+    <div class="lift surface border border-white/10 rounded-2xl p-7 flex flex-col reveal">
+      <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-3">Case 01</p>
+      <h3 class="font-display text-lg font-semibold text-primary mb-4">Reactivating a Cold Pipeline</h3>
+      <dl class="space-y-3 text-sm text-muted flex-1">
+        <div><dt class="text-primary font-medium">Problem</dt><dd>Kraner needed to find financial advisors nearing retirement, or open to an M&A conversation, inside a large, unsorted prospect base.</dd></div>
+        <div><dt class="text-primary font-medium">Approach</dt><dd>Ran a targeted outreach program across 6,000+ prospects.</dd></div>
+        <div><dt class="text-primary font-medium">Analysis</dt><dd>Cleaned and transformed the underlying Excel datasets to keep reporting accurate and consistent.</dd></div>
+        <div><dt class="text-primary font-medium">Outcome</dt><dd>A repeatable weekly reporting cadence that management now uses to track progress and adjust strategy.</dd></div>
+      </dl>
+      <p class="mt-5 text-xs font-mono text-accent-blue uppercase eyebrow">Excel · Outreach · KPI Reporting</p>
+    </div>
+
+    <div class="lift surface border border-white/10 rounded-2xl p-7 flex flex-col reveal">
+      <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-3">Case 02</p>
+      <h3 class="font-display text-lg font-semibold text-primary mb-4">The Weekly Market Brief</h3>
+      <dl class="space-y-3 text-sm text-muted flex-1">
+        <div><dt class="text-primary font-medium">Problem</dt><dd>The Student Investment Club needed a consistent way to keep members current on markets between meetings.</dd></div>
+        <div><dt class="text-primary font-medium">Approach</dt><dd>As Secretary, authored a recurring article covering stock trends and economic events.</dd></div>
+        <div><dt class="text-primary font-medium">Analysis</dt><dd>Tied each brief back to the club's meeting curriculum and guest-speaker schedule.</dd></div>
+        <div><dt class="text-primary font-medium">Outcome</dt><dd>A standing content pipeline, and a sharper habit of writing about markets for a real audience.</dd></div>
+      </dl>
+      <p class="mt-5 text-xs font-mono text-accent-blue uppercase eyebrow">Research · Writing · Markets</p>
+    </div>
+
+    <div class="lift surface border border-white/10 rounded-2xl p-7 flex flex-col reveal">
+      <p class="font-mono text-xs text-accent-gold uppercase eyebrow mb-3">Case 03</p>
+      <h3 class="font-display text-lg font-semibold text-primary mb-4">Running Point on 150 Units</h3>
+      <dl class="space-y-3 text-sm text-muted flex-1">
+        <div><dt class="text-primary font-medium">Problem</dt><dd>150+ residential units meant constant coordination between tenants, appraisers, bankers, and inspectors, with zero room for dropped documentation.</dd></div>
+        <div><dt class="text-primary font-medium">Approach</dt><dd>Owned lease creation, filing of confidential records, and all tenant-facing notices directly.</dd></div>
+        <div><dt class="text-primary font-medium">Analysis</dt><dd>Built a personal system for tracking compliance and property standards across every unit.</dd></div>
+        <div><dt class="text-primary font-medium">Outcome</dt><dd>Smooth external stakeholder visits and consistently maintained compliance.</dd></div>
+      </dl>
+      <p class="mt-5 text-xs font-mono text-accent-blue uppercase eyebrow">Operations · Compliance · Client Relations</p>
+    </div>
+
+    <div class="lift surface border border-white/10 rounded-2xl p-7 flex flex-col reveal">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-mono text-xs text-accent-gold uppercase eyebrow">Case 04</p>
+        <span class="font-mono text-xs uppercase eyebrow border border-red-400/40 text-red-400 rounded-full px-3 py-1">Sell / Avoid</span>
+      </div>
+      <h3 class="font-display text-lg font-semibold text-primary mb-4">Bloom Energy Corporation (NYSE: BE): Equity Research</h3>
+      <dl class="space-y-3 text-sm text-muted flex-1">
+        <div><dt class="text-primary font-medium">Problem</dt><dd>Bloom Energy's stock had risen 1,461% on AI data-center hype; the question was whether the price reflected the fundamentals.</dd></div>
+        <div><dt class="text-primary font-medium">Approach</dt><dd>Built a five-year DCF model (2026-2030) using a 13% WACC and 2.5% terminal growth rate, then stress-tested it against the company's actual profitability and balance sheet.</dd></div>
+        <div><dt class="text-primary font-medium">Analysis</dt><dd>Intrinsic value came out to $9.52 against a market price near $260. ROA, ROE, and ROIC were all negative, Debt/Equity sat at 3.79, and free cash flow had been negative since 2021, while roughly half of the U.S. data centers the thesis depends on have been delayed or cancelled.</dd></div>
+        <div><dt class="text-primary font-medium">Outcome</dt><dd>Issued a Sell/Avoid recommendation with ~96% downside to intrinsic value, flagging AI-infrastructure demand as the key risk to watch either way.</dd></div>
+      </dl>
+      <div class="mt-5 flex items-center justify-between">
+        <p class="text-xs font-mono text-accent-blue uppercase eyebrow">DCF Modeling · Equity Research · Valuation</p>
+        <a href="Bloom_Energy_Report_Marcus_Torres.docx" target="_blank" class="text-xs font-mono uppercase eyebrow text-accent-gold hover:underline whitespace-nowrap ml-4">Read full report →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">07 · Education</p>
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-primary mb-14 reveal">Building the technical base.</h2>
+
+  <div class="grid md:grid-cols-2 gap-12">
+    <div class="reveal">
+      <h3 class="font-display text-xl font-semibold text-primary">William Paterson University</h3>
+      <p class="text-muted mt-1">Cotsakos College of Business · Wayne, NJ</p>
+      <p class="font-mono text-sm text-accent-gold mt-3">B.A., Economics (Research & Data Track) and Finance</p>
+      <p class="text-muted text-sm mt-1">Expected Graduation: December 2027</p>
+
+      <div class="mt-6">
+        <p class="text-xs font-mono uppercase eyebrow text-accent-blue mb-2">Relevant Coursework</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="surface-2 border border-white/10 rounded-full px-3 py-1 text-xs text-muted">Macroeconomics</span>
+          <span class="surface-2 border border-white/10 rounded-full px-3 py-1 text-xs text-muted">Microeconomics</span>
+          <span class="surface-2 border border-white/10 rounded-full px-3 py-1 text-xs text-muted">Financial Accounting</span>
+          <span class="surface-2 border border-white/10 rounded-full px-3 py-1 text-xs text-muted">Business Statistics</span>
+          <span class="surface-2 border border-white/10 rounded-full px-3 py-1 text-xs text-muted">Principles of Management</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="text-xs font-mono uppercase eyebrow text-accent-blue mb-3">Certifications</p>
+      <ul class="space-y-3 text-muted">
+        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>Microsoft Office Certifications (Excel, Word, PowerPoint)</li>
+        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>Yale Financial Markets Course</li>
+        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>Bloomberg BFF</li>
+        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>SIE</li>
+        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>CFA Level 1 Applicant</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS + CAREER GOALS -->
+<section class="max-w-6xl mx-auto px-6 py-20 border-t border-white/10">
+  <div class="grid md:grid-cols-2 gap-16">
+    <div class="reveal">
+      <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4">08 · Beyond the Resume</p>
+      <h2 class="font-display text-2xl sm:text-3xl font-semibold text-primary mb-6">What holds his attention.</h2>
+      <div class="flex flex-wrap gap-3">
+        <span class="surface border border-white/10 rounded-full px-4 py-2 text-sm text-muted">Markets & Investing</span>
+        <span class="surface border border-white/10 rounded-full px-4 py-2 text-sm text-muted">Financial Technology</span>
+        <span class="surface border border-white/10 rounded-full px-4 py-2 text-sm text-muted">Real Estate Operations</span>
+        <span class="surface border border-white/10 rounded-full px-4 py-2 text-sm text-muted">Mentorship & Networking</span>
+        <span class="surface border border-white/10 rounded-full px-4 py-2 text-sm text-muted">Applied AI in Finance</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4">09 · Looking Ahead</p>
+      <h2 class="font-display text-2xl sm:text-3xl font-semibold text-primary mb-6">Career goals.</h2>
+      <p class="text-muted leading-relaxed">Marcus is working toward the CFA charter and a career in wealth management or financial analysis, somewhere his operational grounding and his growing analytical toolkit both matter. He wants to be the person on a team who can read the numbers and read the room, because he's spent his early career doing both.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="relative overflow-hidden border-t border-white/10">
+  <div class="blob w-96 h-96 bg-accent-blue bottom-0 left-1/3" style="animation-delay:-3s;"></div>
+  <div class="relative max-w-6xl mx-auto px-6 py-28 text-center">
+    <p class="font-mono text-xs eyebrow uppercase text-accent-blue mb-4 reveal">10 · Contact</p>
+    <h2 class="font-display text-3xl sm:text-5xl font-semibold text-primary mb-6 reveal">Let's talk about what's next.</h2>
+    <p class="text-muted max-w-xl mx-auto mb-10 reveal">Open to conversations with recruiters, hiring managers, mentors, and anyone building at the intersection of operations and finance.</p>
+    <div class="flex flex-wrap justify-center gap-4 reveal">
+      <a href="mailto:tmarcus1234@gmail.com" class="font-mono text-sm uppercase eyebrow bg-accent-gold text-navy px-6 py-3 rounded-full font-medium hover:brightness-110 transition">Email Marcus</a>
+      <a href="tel:2017447978" class="font-mono text-sm uppercase eyebrow border border-white/20 px-6 py-3 rounded-full hover:border-accent-blue hover:text-accent-blue transition">201-744-7978</a>
+      <a href="Marcus_Torres_Resume.pdf" target="_blank" class="font-mono text-sm uppercase eyebrow border border-white/20 px-6 py-3 rounded-full hover:border-accent-blue hover:text-accent-blue transition">Download Resume</a>
+      <span class="font-mono text-sm uppercase eyebrow border border-white/10 px-6 py-3 rounded-full text-muted">LinkedIn · Marcus Torres</span>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-white/10 py-8 text-center text-xs text-muted font-mono">
+  © 2026 Marcus Torres · Jersey City, NJ
+</footer>
+
+<script>
+  // Theme toggle
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const moon = document.getElementById('icon-moon');
+  const sun = document.getElementById('icon-sun');
+  toggle.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const isDark = root.classList.contains('dark');
+    moon.classList.toggle('hidden', !isDark);
+    sun.classList.toggle('hidden', isDark);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Skill bar fill on view
+  const skillGroups = document.querySelectorAll('[data-skills]');
+  const skillIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.level + '%';
+        });
+        skillIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  skillGroups.forEach(g => skillIo.observe(g));
+
+  // Timeline expand
+  document.querySelectorAll('[data-item]').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('open'));
+  });
+
+  // Counters
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = parseInt(el.dataset.target, 10);
+    let started = false;
+    const counterIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !started) {
+          started = true;
+          const duration = 1200;
+          const start = performance.now();
+          function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target).toLocaleString();
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target.toLocaleString();
+          }
+          requestAnimationFrame(tick);
+          counterIo.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counterIo.observe(el);
+  });
+</script>
+</body>
+</html>
