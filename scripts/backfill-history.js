@@ -50,6 +50,10 @@ async function fetchTimeSeries(symbol, startDate, endDate) {
   return byDate;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function main() {
   if (!API_KEY) {
     console.error('TWELVE_DATA_API_KEY is not set. Add it under Settings > Secrets and variables > Actions.');
@@ -75,13 +79,19 @@ async function main() {
   const allSymbols = [...tickers, BENCHMARK_SYMBOL];
 
   const priceSeries = {};
-  for (const symbol of allSymbols) {
+  for (let i = 0; i < allSymbols.length; i++) {
+    const symbol = allSymbols[i];
     try {
       priceSeries[symbol] = await fetchTimeSeries(symbol, earliestPurchase, endDate);
       console.log(`Fetched ${Object.keys(priceSeries[symbol]).length} trading days for ${symbol}.`);
     } catch (err) {
       console.error(err.message);
       process.exit(1); // Don't write a partial/inconsistent backfill.
+    }
+    // Twelve Data's free tier caps requests at 8/minute. Space these out
+    // so a portfolio with several holdings never bursts past that limit.
+    if (i < allSymbols.length - 1) {
+      await sleep(8000);
     }
   }
 
