@@ -75,11 +75,14 @@ html:not(.dark) .mode-btn.is-active { color: #FFFFFF; }
   z-index: 100;
   background: rgba(6, 13, 24, 0.75);
   backdrop-filter: blur(4px);
-  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-}
+  padding: 1.5rem;}
+#ticker-modal.hidden
+{display:none;}
+#ticker:not(.hidden)
+{display:flex;}
+
 html:not(.dark) #ticker-modal { background: rgba(15, 29, 51, 0.45); }
 
 #ticker-modal .modal-panel {
