@@ -1,0 +1,44 @@
+name: Backfill Portfolio History
+
+on:
+  # Runs automatically any time data/holdings.json is committed — so
+  # adding a holding (with its real purchase date) or editing one
+  # rebuilds the historical chart data without any manual step.
+  push:
+    branches: [main]
+    paths:
+      - 'data/holdings.json'
+  # Still available to trigger by hand too, if you ever want to force a rebuild.
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Backfill real historical prices
+        env:
+          TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
+        run: node scripts/backfill-history.js
+
+      - name: Commit backfilled history
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "actions@github.com"
+          git add data/portfolio-history.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Backfill portfolio history from purchase dates"
+            git push
+          fi
