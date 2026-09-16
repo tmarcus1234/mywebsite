@@ -235,23 +235,23 @@ function renderSummaryCards(totals) {
 
   const profitEl = el('card-profit');
   profitEl.textContent = fmtSignedUSD(totals.totalProfit);
-  profitEl.className = `font-mono text-2xl sm:text-3xl font-semibold ${signClass(totals.totalProfit)}`;
+  profitEl.className = `font-mono text-lg sm:text-xl lg:text-2xl font-semibold break-words ${signClass(totals.totalProfit)}`;
 
   const returnEl = el('card-return');
   returnEl.textContent = fmtPct(totals.totalReturnPercent);
-  returnEl.className = `font-mono text-2xl sm:text-3xl font-semibold ${signClass(totals.totalReturnPercent)}`;
+  returnEl.className = `font-mono text-lg sm:text-xl lg:text-2xl font-semibold break-words ${signClass(totals.totalReturnPercent)}`;
 
   const dailyDollarEl = el('card-daily-dollar');
   const dailyPctEl = el('card-daily-pct');
   if (totals.dailyChangeDollar === null) {
     dailyDollarEl.textContent = '—';
     dailyPctEl.textContent = 'No prior session yet';
-    dailyDollarEl.className = 'font-mono text-2xl sm:text-3xl font-semibold text-muted';
+    dailyDollarEl.className = 'font-mono text-lg sm:text-xl lg:text-2xl font-semibold break-words text-muted';
     dailyPctEl.className = 'text-xs text-muted mt-1';
   } else {
     dailyDollarEl.textContent = fmtSignedUSD(totals.dailyChangeDollar);
     dailyPctEl.textContent = `${fmtPct(totals.dailyChangePercent)} Today`;
-    dailyDollarEl.className = `font-mono text-2xl sm:text-3xl font-semibold ${signClass(totals.dailyChangeDollar)}`;
+    dailyDollarEl.className = `font-mono text-lg sm:text-xl lg:text-2xl font-semibold break-words ${signClass(totals.dailyChangeDollar)}`;
     dailyPctEl.className = `text-xs mt-1 font-mono ${signClass(totals.dailyChangePercent)}`;
   }
 
