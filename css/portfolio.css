@@ -80,7 +80,7 @@ html:not(.dark) .mode-btn.is-active { color: #FFFFFF; }
   padding: 1.5rem;}
 #ticker-modal.hidden
 {display:none;}
-#ticker:not(.hidden)
+#ticker-modal:not(.hidden)
 {display:flex;}
 
 html:not(.dark) #ticker-modal { background: rgba(15, 29, 51, 0.45); }
