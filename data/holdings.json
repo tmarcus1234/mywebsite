@@ -1,26 +1,50 @@
 [
   {
-    "ticker": "AAPL",
-    "company": "Apple Inc.",
-    "shares": 50,
-    "purchasePrice": 185.25,
-    "purchaseDate": "2026-09-01",
+    "ticker": "VWO",
+    "company": "Vangaurd Emerging Market Fund.",
+    "shares": 17,
+    "purchasePrice": 42.07,
+    "purchaseDate": "2023-12-03",
+    "sector": "Index Fund"
+  },
+  {
+    "ticker": "SPMO",
+    "company": "S&P 500 Momentum ETF",
+    "shares": 112,
+    "purchasePrice": 85.97,
+    "purchaseDate": "2026-07-16",
+    "sector": "Index"
+  },
+  {
+    "ticker": "MU",
+    "company": "Micron Technology",
+    "shares": 2,
+    "purchasePrice": 905.91,
+    "purchaseDate": "2026-07-15",
     "sector": "Technology"
   },
   {
-    "ticker": "JPM",
-    "company": "JPMorgan Chase & Co.",
-    "shares": 30,
-    "purchasePrice": 210.50,
-    "purchaseDate": "2026-09-01",
-    "sector": "Financials"
+    "ticker": "SPCX",
+    "company": "SpaceX Corporation",
+    "shares": 13,
+    "purchasePrice": 160.90,
+    "purchaseDate": "2026-06-25",
+    "sector": "Technology"
   },
   {
-    "ticker": "MSFT",
-    "company": "Microsoft Corporation",
-    "shares": 25,
-    "purchasePrice": 420.50,
-    "purchaseDate": "2026-09-10",
+    "ticker": "NVDA",
+    "company": "Nvidia Corporation",
+    "shares": 6,
+    "purchasePrice": 136.59,
+    "purchaseDate": "2024-06-23",
     "sector": "Technology"
-  }
+  },
+   {
+    "ticker": "IVV",
+    "company": "IShares Core S&P 500",
+    "shares": 8,
+    "purchasePrice": 494.80,
+    "purchaseDate": "2024-04-26",
+    "sector": "Index"
+  },
 ]
