@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "date": "2026-09-15",
+    "portfolioValue": 39569.7,
+    "costBasis": 26090,
+    "profit": 13479.7,
+    "returnPercent": 51.67,
+    "spyClose": 757.39001,
+    "positions": {
+      "AAPL": {
+        "price": 331.34,
+        "marketValue": 16567,
+        "profit": 7304.5,
+        "returnPercent": 78.86
+      },
+      "JPM": {
+        "price": 352.48999,
+        "marketValue": 10574.7,
+        "profit": 4259.7,
+        "returnPercent": 67.45
+      },
+      "MSFT": {
+        "price": 497.12,
+        "marketValue": 12428,
+        "profit": 1915.5,
+        "returnPercent": 18.22
+      }
+    }
+  }
+]
