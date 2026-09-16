@@ -1,0 +1,101 @@
+/* portfolio.css
+   Extends the existing site's design system (see index.html's inline
+   Tailwind config + base styles) with the pieces specific to the
+   dashboard: profit/loss coloring, sortable table headers, chart
+   containers, the ticker detail modal, and the table/card breakpoint. */
+
+/* ---------- profit / loss coloring ----------
+   Chosen to read clearly on both the dark navy surface and the light
+   offwhite surface without needing separate light/dark overrides. */
+.pl-positive { color: #34D399; }
+.pl-negative { color: #F87171; }
+.pl-flat { color: #94A3B8; }
+
+/* ---------- period / mode toggle buttons ---------- */
+.period-btn,
+.mode-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  transition: all 0.2s ease;
+}
+.period-btn:hover,
+.mode-btn:hover { border-color: #5B8DEF; color: #5B8DEF; }
+.period-btn.is-active,
+.mode-btn.is-active {
+  background: #5B8DEF;
+  border-color: #5B8DEF;
+  color: #0A1628;
+  font-weight: 600;
+}
+html:not(.dark) .period-btn,
+html:not(.dark) .mode-btn { border-color: #E2E8F0; color: #475569; }
+html:not(.dark) .period-btn.is-active,
+html:not(.dark) .mode-btn.is-active { color: #FFFFFF; }
+
+/* ---------- chart containers ---------- */
+.chart-container { position: relative; width: 100%; height: 340px; }
+.chart-container-sm { position: relative; width: 100%; height: 240px; }
+.chart-container-xs { position: relative; width: 100%; height: 160px; }
+
+/* ---------- holdings table ---------- */
+#holdings-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748B;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+#holdings-table th:hover { color: #5B8DEF; }
+#holdings-table th[data-sort-key] .sort-indicator { display: inline-block; width: 0.8em; font-size: 0.65rem; }
+#holdings-table td { white-space: nowrap; }
+#holdings-table tbody tr { cursor: pointer; }
+
+/* Desktop: table view. Mobile: card view. */
+.holdings-table-wrap { display: block; overflow-x: auto; }
+#holdings-cards { display: none; }
+
+@media (max-width: 767px) {
+  .holdings-table-wrap { display: none; }
+  #holdings-cards { display: grid; gap: 0.75rem; }
+}
+
+/* ---------- ticker detail modal ---------- */
+#ticker-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(6, 13, 24, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+html:not(.dark) #ticker-modal { background: rgba(15, 29, 51, 0.45); }
+
+#ticker-modal .modal-panel {
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ---------- misc ---------- */
+.data-status-banner {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.disclaimer-text {
+  max-width: 48rem;
+  margin: 0 auto;
+}
