@@ -1,0 +1,42 @@
+name: Update Portfolio Snapshot
+
+on:
+  schedule:
+    # 21:30 UTC = 4:30pm EST / 5:30pm EDT — comfortably after the 4:00pm ET
+    # market close year-round, regardless of daylight saving time.
+    - cron: '30 21 * * 1-5'
+  # Lets you trigger a snapshot manually from the Actions tab — use this
+  # once right after deploying, so the dashboard isn't empty on day one.
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-portfolio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch prices and update snapshot
+        env:
+          TWELVE_DATA_API_KEY: ${{ secrets.TWELVE_DATA_API_KEY }}
+        run: node scripts/update-portfolio.js
+
+      - name: Commit updated history (if anything changed)
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "actions@github.com"
+          git add data/portfolio-history.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit (market closed or already recorded today)."
+          else
+            git commit -m "Update portfolio snapshot for $(date -u +%F)"
+            git push
+          fi
