@@ -172,14 +172,20 @@ function computeSectorAllocation(positions) {
 }
 
 function computeMovers(positions) {
-  const priced = positions.filter(p => p.hasPrice).sort((a, b) => b.returnPercent - a.returnPercent);
-  const n = priced.length;
-  const topCount = Math.min(3, Math.ceil(n / 2));
-  const bottomCount = Math.min(3, Math.floor(n / 2));
-  return {
-    top: priced.slice(0, topCount),
-    bottom: priced.slice(n - bottomCount).reverse()
-  };
+  const priced = positions.filter(p => p.hasPrice);
+
+  const top = [...priced]
+    .sort((a, b) => b.returnPercent - a.returnPercent)
+    .slice(0, Math.min(3, priced.length));
+
+  // Decliners are only ever actual losses — never "the least-positive
+  // positions" when the whole portfolio happens to be up.
+  const bottom = priced
+    .filter(p => p.returnPercent < 0)
+    .sort((a, b) => a.returnPercent - b.returnPercent)
+    .slice(0, 3);
+
+  return { top, bottom, hasPriced: priced.length > 0 };
 }
 
 function computeStats(positions) {
@@ -198,16 +204,22 @@ function computeStats(positions) {
 }
 
 function computeBenchmark(history) {
-  const withSpy = history.filter(h => typeof h.spyClose === 'number' && typeof h.portfolioValue === 'number');
+  const withSpy = history.filter(h => typeof h.spyClose === 'number' && typeof h.returnPercent === 'number');
   if (withSpy.length < 2) return null;
 
-  const basePortfolio = withSpy[0].portfolioValue;
   const baseSpy = withSpy[0].spyClose;
-  if (!basePortfolio || !baseSpy) return null;
+  if (!baseSpy) return null;
 
+  // Portfolio side is indexed off Total Return % (profit/cost-basis), NOT
+  // raw dollar value. Raw value would spike whenever a new holding is
+  // added — that's new capital entering the portfolio, not investment
+  // performance — and would badly distort the comparison against a
+  // static benchmark like SPY. Return % already isolates real gains from
+  // contributions, since cost basis grows alongside market value the
+  // instant a new position joins.
   const series = withSpy.map(h => ({
     date: h.date,
-    portfolioNorm: round2((h.portfolioValue / basePortfolio) * 100),
+    portfolioNorm: round2(100 + h.returnPercent),
     spyNorm: round2((h.spyClose / baseSpy) * 100)
   }));
 
@@ -365,13 +377,13 @@ function moverRowHTML(p) {
 }
 
 function renderMovers(positions) {
-  const { top, bottom } = computeMovers(positions);
+  const { top, bottom, hasPriced } = computeMovers(positions);
   el('top-performers').innerHTML = top.length
     ? top.map(moverRowHTML).join('')
     : '<p class="text-sm text-muted">Not enough priced positions yet.</p>';
   el('largest-decliners').innerHTML = bottom.length
     ? bottom.map(moverRowHTML).join('')
-    : '<p class="text-sm text-muted">Not enough priced positions yet.</p>';
+    : `<p class="text-sm text-muted">${hasPriced ? 'No positions currently down.' : 'Not enough priced positions yet.'}</p>`;
 }
 
 function renderStats(positions) {
