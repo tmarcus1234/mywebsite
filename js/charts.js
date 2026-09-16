@@ -72,7 +72,7 @@ export function renderPerformanceChart(canvasId, history, mode) {
     }];
     yTickFormat = (v) => `${v.toFixed(0)}%`;
   } else if (mode === 'benchmark') {
-    const withSpy = history.filter(h => typeof h.spyClose === 'number');
+    const withSpy = history.filter(h => typeof h.spyClose === 'number' && typeof h.returnPercent === 'number');
     if (withSpy.length < 2) {
       ctx.classList.add('hidden');
       if (empty) {
@@ -82,11 +82,15 @@ export function renderPerformanceChart(canvasId, history, mode) {
       if (performanceChart) { performanceChart.destroy(); performanceChart = null; }
       return;
     }
-    const baseP = withSpy[0].portfolioValue, baseS = withSpy[0].spyClose;
+    // Portfolio line is indexed off Total Return %, not raw dollar value —
+    // raw value jumps whenever a new holding is added (new capital, not
+    // performance), which would badly distort this comparison. See the
+    // matching note in computeBenchmark() in portfolio.js.
+    const baseS = withSpy[0].spyClose;
     datasets = [
       {
         label: 'Student Investment Club',
-        data: withSpy.map(h => (h.portfolioValue / baseP) * 100),
+        data: withSpy.map(h => 100 + h.returnPercent),
         borderColor: gold,
         backgroundColor: 'rgba(201,162,75,0.1)',
         fill: false,
